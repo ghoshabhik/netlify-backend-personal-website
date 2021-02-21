@@ -17,6 +17,12 @@ exports.handler = async (event, request, context) => {
     .select({'title':1, 'slug': 1, 'projectType':1, 'description':1})
     return{
         statusCode: 200,
+        headers: {
+            /* Required for CORS support to work */
+            'Access-Control-Allow-Origin': '*',
+            /* Required for cookies, authorization headers with HTTPS */
+            'Access-Control-Allow-Credentials': true
+          },
         body: JSON.stringify(projects)
     }
 }

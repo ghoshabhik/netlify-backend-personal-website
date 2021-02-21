@@ -21,11 +21,23 @@ exports.handler = async (event, request, context) => {
         comment = await comment.save()
         return{
             statusCode: 200,
+            headers: {
+                /* Required for CORS support to work */
+                'Access-Control-Allow-Origin': '*',
+                /* Required for cookies, authorization headers with HTTPS */
+                'Access-Control-Allow-Credentials': true
+              },
             body: JSON.stringify(comment)
         }
     } else{
         return{
             statusCode: 404,
+            headers: {
+                /* Required for CORS support to work */
+                'Access-Control-Allow-Origin': '*',
+                /* Required for cookies, authorization headers with HTTPS */
+                'Access-Control-Allow-Credentials': true
+              },
             body: 'Get method not allowed'
         }
     }
