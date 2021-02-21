@@ -13,15 +13,16 @@ exports.handler = async (event, request, context) => {
 
     mongoose.connect(uri, { useNewUrlParser: true,  useUnifiedTopology: true, useCreateIndex: true, useFindAndModify:true})
     const projects = await Project.find()
-    .sort({projectType: 'desc'})
-    .select({'title':1, 'slug': 1, 'projectType':1, 'description':1})
+    .sort({'createdAt': 'desc'})
+    .select({'title':1, 'slug': 1, 'createdAt':1, 'description':1})
     return{
         statusCode: 200,
         headers: {
             /* Required for CORS support to work */
             'Access-Control-Allow-Origin': '*',
             /* Required for cookies, authorization headers with HTTPS */
-            'Access-Control-Allow-Credentials': true
+            'Access-Control-Allow-Credentials': true,
+            'Access-Control-Allow-Methods': "GET, PUT, POST, DELETE, HEAD, OPTIONS"
           },
         body: JSON.stringify(projects)
     }
